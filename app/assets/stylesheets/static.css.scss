@@ -1,0 +1,14 @@
+// Place all the styles related to the static controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+body { 
+  font: 14px helvetica neue, helvetica, arial, sans-serif;
+}
+
+#cy {
+  z-index: 999;
+  height: 50em;
+  width: 65em;
+  background: rgba(255,255,255,.66);
+  border: 1px solid rgba(127,127,127,.5);
+}

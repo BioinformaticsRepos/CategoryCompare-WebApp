@@ -1,0 +1,21 @@
+%h3 Inputs
+= simple_form_for @category_compare, url: update_graph_path do |f|
+  = f.input :annotation_type, collection: %w[BP KEGG MF CC]
+  = f.input :organism_type, collection: %w[Hs Mm Rn Dm Dr Xl Bt Sg]
+  = f.input :significance_value, placeholder: 'Must be betwen 0 and 1'
+  <br />
+
+  %legend Background
+  = f.simple_fields_for :background do |b|
+    = b.input :gene_list
+
+  %legend 
+    %span Gene Lists
+  #tasks
+    = f.simple_fields_for :datasets do |i|
+      = render 'dataset_fields', :f => i
+    .links
+      = link_to_add_association raw('<i class="icon-plus"></i>'), f, :datasets, class: 'pull-right'
+
+  %br
+  = f.submit 'Run Category Compare', class: 'btn btn-primary btn-block' 
