@@ -6,6 +6,7 @@
 * Install Bundler (run "gem install bundler")
 * Install R
 * Install CategoryCompare from bioconductor.
+* Install KEGG.db from bioconductor. [biocLite("KEGG.db")]
 * Install RServe, so that the web app can communicate
   with R, and hence, with CategoryCompare.
 
