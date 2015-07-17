@@ -9,19 +9,18 @@ class CategoryCompare < ActiveRecord::Base
   column :annotation_type, :string
   column :organism_type, :string
   column :significance_value, :real
-  
+
   validates_presence_of :annotation_type, :significance_value, :organism_type
   validates_numericality_of :significance_value, greater_than_or_equal_to: 0, message: 'Must be greater than or equal to 0'
   validates_numericality_of :significance_value, less_than_or_equal_to: 1, message: 'Must be be less than or equal to 1'
 
-
   def run
       con=Rserve::Connection.new
-      con.void_eval("library('categoryCompare')")
+    # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
+    #      get the selected organism_type from that controller - not the selected UI text.
       con.void_eval("library('org.#{self.organism_type}.eg.db')")
-      con.void_eval("library('GO.db')")
-      con.void_eval("library('KEGG.db')")
       con.assign("EntrezUniverseTable", self.background.gene_list.split(' ').map(&:to_i))
+
       con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
 
       list_of_gene_lists = ""
@@ -31,6 +30,10 @@ class CategoryCompare < ActiveRecord::Base
         list_of_gene_lists << "LEVEL#{i}=genelist#{i},"
       end
 
+      # TODO The reason the "Organism type" IS UNREADable is because we use it
+      #      to say 'org.{Organism type}.db' to get info about it. There should be
+      #      a data structure mapping from an organism type to a human-readable name.
+      #      Same for the databases and such.
       # Removes trailing comma
       list_of_gene_lists.chomp!(',')
 
@@ -41,6 +44,7 @@ class CategoryCompare < ActiveRecord::Base
       con.void_eval("EnrichedList <- ccEnrich(GeneLists)")
       con.void_eval("pvalueCutoff(EnrichedList)<-0.001")
       con.void_eval("ccOpts <- new('ccOptions', listNames=names(GeneLists), outType='none')")
+
       con.void_eval("ccResults<-ccCompare(EnrichedList, ccOpts)")
       
       elements = {}
