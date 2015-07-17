@@ -1,7 +1,7 @@
 %h3 Inputs
 = simple_form_for @category_compare, url: update_graph_path do |f|
   = f.input :annotation_type, collection: %w[BP KEGG MF CC]
-  = f.input :organism_type, collection: %w[Hs Mm Rn Dm Dr Xl Bt Sg]
+  = f.input :organism_type, collection: @organism_type_list
   = f.input :significance_value, placeholder: 'Must be between 0 and 1'
   <br />
 

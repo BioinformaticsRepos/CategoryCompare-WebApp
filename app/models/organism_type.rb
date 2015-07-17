@@ -41,4 +41,35 @@ class OrganismType
                          ENGLISH_ZEBRA_FISH          + " (" + SCI_ZEBRA_FISH + ")",
                          ENGLISH_AFRICAN_CLAWED_FROG + " (" + SCI_AFRICAN_CLAWED_FROG + ")",
                          ENGLISH_BOVINE              + " (" + SCI_BOVINE + ")"]
+
+  cattr_accessor :HumanFriendlyUIList
+  @@HumanFriendlyUIList = [[ENGLISH_HUMAN               + " (" + SCI_HUMAN + ")", DB_HUMAN],
+                           [ENGLISH_MOUSE               + " (" + SCI_MOUSE + ")", DB_MOUSE],
+                           [ENGLISH_RAT                 + " (" + SCI_RAT + ")", DB_RAT],
+                           [ENGLISH_FLY                 + " (" + SCI_FLY + ")", DB_FLY],
+                           [ENGLISH_ZEBRA_FISH          + " (" + SCI_ZEBRA_FISH + ")", DB_ZEBRA_FISH],
+                           [ENGLISH_AFRICAN_CLAWED_FROG + " (" + SCI_AFRICAN_CLAWED_FROG + ")", DB_AFRICAN_CLAWED_FROG],
+                           [ENGLISH_BOVINE              + " (" + SCI_BOVINE + ")", DB_BOVINE]]
+
+
+  def self.english_to_db(organism_type)
+      case organism_type
+      when ENGLISH_HUMAN
+        return DB_HUMAN
+      when ENGLISH_MOUSE
+        return DB_MOUSE
+      when ENGLISH_RAT
+        return DB_RAT
+      when ENGLISH_FLY
+        return DB_FLY
+      when ENGLISH_ZEBRA_FISH
+        return DB_ZEBRA_FISH
+      when ENGLISH_AFRICAN_CLAWED_FROG
+        return DB_AFRICAN_CLAWED_FROG
+      when ENGLISH_BOVINE
+        return DB_BOVINE
+      else
+        return "TODO THROW AN ERROR HERE"
+      end
+  end
 end
