@@ -6,16 +6,17 @@
   <br />
 
   %legend All possible genes
-  = f.simple_fields_for :background do |b|
-    = b.input :gene_list
+  = f.simple_fields_for :all_possible_genes do |b|
+    = b.input :text_gene_list
+    = b.file_field :file_gene_list
 
   %legend 
     %span Differentially-expressed genes
   #tasks
-    = f.simple_fields_for :datasets do |i|
-      = render 'dataset_fields', :f => i
+    = f.simple_fields_for :diff_expressed_gene_list do |i|
+      = render 'diff_expressed_gene_list_fields', :f => i
     .links
-      = link_to_add_association raw('<i class="icon-plus"></i>'), f, :datasets, class: 'pull-right'
+      = link_to_add_association raw('<i class="icon-plus"></i>'), f, :diff_expressed_gene_list, class: 'pull-right'
 
   %br
   = f.submit 'Run Category Compare', class: 'btn btn-primary btn-block' 

@@ -1,6 +1,7 @@
 class StaticController < ApplicationController
   def home
-    @category_compare = CategoryCompare.new(datasets: [Dataset.new], background: Background.new)
+    @category_compare = CategoryCompare.new(diff_expressed_gene_list: [DiffExpressedGeneList.new],
+                                            all_possible_genes: AllPossibleGenes.new)
     @organism_type_list = OrganismType.HumanFriendlyUIList
   end
 
@@ -19,8 +20,7 @@ class StaticController < ApplicationController
   def graph_attributes
     params.require(:category_compare).permit(:annotation_type, :organism_type,
                                              :significance_value, 
-                                             background_attributes: [:gene_list], 
-                                             datasets_attributes: [:name, :gene_list])
-
+                                             all_possible_genes_attributes: [:text_gene_list, :file_gene_list],
+                                             diff_expressed_gene_list_attributes: [:name, :text_gene_list, :file_gene_list])
   end
 end
