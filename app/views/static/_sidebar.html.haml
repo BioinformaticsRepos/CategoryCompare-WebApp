@@ -5,7 +5,7 @@
   = f.input :significance_value, placeholder: 'Must be between 0 and 1'
   <br />
 
-  %legend All possible genes
+  %legend Gene universe
   = f.simple_fields_for :all_possible_genes do |b|
     = b.input :text_gene_list
     = b.file_field :file_gene_list
