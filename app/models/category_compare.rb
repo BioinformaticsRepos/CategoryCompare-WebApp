@@ -37,9 +37,6 @@ class CategoryCompare < ActiveRecord::Base
         con.assign("genes#{i}", set.text_gene_list.split(' ').map(&:to_i))
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "LEVEL#{i}=genelist#{i},"
-
-
-    #   con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list.tempfile).map{|line| line.to_i})
       elsif not File.zero?(set.file_gene_list.tempfile)
         con.assign("genes#{i}", File.foreach(set.file_gene_list.tempfile).map{|line| line.to_i})
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
@@ -56,20 +53,13 @@ class CategoryCompare < ActiveRecord::Base
     list_of_gene_lists.chomp!(',')
 
     con.void_eval("GeneLists <- list(#{list_of_gene_lists})")
-#    con.assign("GeneLists", "list(#{list_of_gene_lists})")
-#    con.assign("GeneLists", "new('ccGeneList', GeneLists, ccType=c('#{self.annotation_type}'))")
     con.void_eval("GeneLists <- new('ccGeneList', GeneLists, ccType=c('#{self.annotation_type}'))")
     con.void_eval("fdr(GeneLists) <- 0")
-#    con.assign("fdr(GeneLists)", "0")
     con.void_eval("EnrichedList <- ccEnrich(GeneLists)")
-#    con.assign("EnrichedList", "ccEnrich(GeneLists)")
     con.void_eval("pvalueCutoff(EnrichedList)<-0.001")
-#    con.assign("pvalueCutoff(EnrichedList)", "0.001")
     con.void_eval("ccOpts <- new('ccOptions', listNames=names(GeneLists), outType='none')")
-#    con.assign("ccOpts", "new('ccOptions', listNames=names(GeneLists), outType='none')")
 
     con.void_eval("ccResults<-ccCompare(EnrichedList, ccOpts)")
-#    con.assign("ccResults", "ccCompare(EnrichedList, ccOpts)")
     
     elements = {}
     elements[:nodes] = []
