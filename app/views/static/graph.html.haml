@@ -2,10 +2,13 @@
 = javascript_include_tag "http://cytoscape.github.io/cytoscape.js/api/cytoscape.js-latest/cytoscape.min.js" 
 = javascript_include_tag "cytoscape_initialization"
 %a.btn.btn-primary#export-png{download:'ExportedGraph.png', href: ''} Export PNG
+%a.btn.btn-primary#recenter-view{} Re-center view
 
 :coffee
   $('#export-png').on 'click', (->
     $("#export-png").attr('href', cy.png({bg:'white',full:true}))
   )
-
-
+:coffee
+  $('#recenter-view').on 'click', (->
+    cy.fit()
+  )
