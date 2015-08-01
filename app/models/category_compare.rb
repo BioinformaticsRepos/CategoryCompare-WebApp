@@ -70,7 +70,7 @@ class CategoryCompare < ActiveRecord::Base
     r_weights = con.eval("ccResults$#{self.annotation_type}@mainGraph@edgeData@data").to_ruby
     r_node_data = con.eval("ccResults$#{self.annotation_type}@mainGraph@nodeData@data").to_ruby
 
-    r_nodes.each {|n| elements[:nodes] << {data: {id: n,name:n}}}
+    r_nodes.each_with_index {|node, index| elements[:nodes] << {data: {id: node, name: r_node_data[index]["Desc"]}}}
 
     r_edges.each_with_index do |edge,i|
       if edge
