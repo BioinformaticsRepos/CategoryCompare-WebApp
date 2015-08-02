@@ -16,9 +16,7 @@ class CategoryCompare < ActiveRecord::Base
 
   def run
     con=Rserve::Connection.new
-    # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
-    #      get the selected organism_type from that controller - not the selected UI text.
-    con.void_eval("library('org.#{self.organism_type}.eg.db')")
+
     # TODO There should be an if statement here depending on the gene list.
     if self.all_possible_genes.text_gene_list.length > 0
       con.assign("EntrezUniverseTable", self.all_possible_genes.text_gene_list.split(' ').map(&:to_i))
@@ -35,6 +33,8 @@ class CategoryCompare < ActiveRecord::Base
       # TODO This validation should be more rigorous, correct.
       if !set.text_gene_list.blank?
         con.assign("genes#{i}", set.text_gene_list.split(' ').map(&:to_i))
+    # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
+    #      get the selected organism_type from that controller - not the selected UI text.
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "LEVEL#{i}=genelist#{i},"
       elsif not File.zero?(set.file_gene_list.tempfile)
