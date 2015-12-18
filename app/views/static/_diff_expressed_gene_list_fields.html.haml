@@ -2,5 +2,6 @@
   .form-horizontal
     = f.file_field :file_gene_list
     = f.input :text_gene_list
+    = f.input :gene_list_label
     = link_to_remove_association f, class: 'btn btn-mini btn-danger' do 
       %i.icon-remove
