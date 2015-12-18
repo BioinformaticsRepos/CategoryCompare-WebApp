@@ -5,10 +5,26 @@
 * Install the Ruby dev kit
 * Install Bundler (run "gem install bundler")
 * Install R
-* Install CategoryCompare from bioconductor.
-* Install KEGG.db from bioconductor. [biocLite("KEGG.db")]
+* Install these bioconductor packages:
+** CategoryCompare
+** KEGG.db [biocLite("KEGG.db")]
+** GO.db
+** org.Hs.eg.db
+** org.Mm.eg.db
+** org.Rn.eg.db
+** org.Dm.eg.db
+** org.Dr.eg.db
+** org.Xl.eg.db
+** org.Bt.eg.db
+
 * Install RServe, so that the web app can communicate
   with R, and hence, with CategoryCompare.
+* If you're on Ubuntu:
+     Copy the file scripts/category-compare-web.conf to /etc/init/.
+     This will allow you to run the CC web server as a
+     daemon for easy administration. There's probably a way to
+     build an installer to handle this step, but that can be done
+     later if needed.
 
 === SETUP ===
 * In the project root directory, run "bundle install"
