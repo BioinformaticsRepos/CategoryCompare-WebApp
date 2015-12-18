@@ -29,16 +29,18 @@ class CategoryCompare < ActiveRecord::Base
 
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
     list_of_gene_lists = ""
-    self.diff_expressed_gene_list.each_with_index do |set, i|
+    self.diff_expressed_gene_list.each_with_index do |gene_list, i|
+      logger.debug gene_list.gene_list_label
+
       # TODO This validation should be more rigorous, correct.
-      if !set.text_gene_list.blank?
-        con.assign("genes#{i}", set.text_gene_list.split(' ').map(&:to_i))
+      if !gene_list.text_gene_list.blank?
+        con.assign("genes#{i}", gene_list.text_gene_list.split(' ').map(&:to_i))
     # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
     #      get the selected organism_type from that controller - not the selected UI text.
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "LEVEL#{i}=genelist#{i},"
-      elsif not File.zero?(set.file_gene_list.tempfile)
-        con.assign("genes#{i}", File.foreach(set.file_gene_list.tempfile).map{|line| line.to_i})
+      elsif not File.zero?(gene_list.file_gene_list.tempfile)
+        con.assign("genes#{i}", File.foreach(gene_list.file_gene_list.tempfile).map{|line| line.to_i})
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         # TODO This should be renamed "list_of_diff_expressed_gene_lists"
         list_of_gene_lists << "LEVEL#{i}=genelist#{i},"
@@ -69,13 +71,14 @@ class CategoryCompare < ActiveRecord::Base
     r_edges = con.eval("ccResults$#{self.annotation_type}@mainGraph@edgeL").to_ruby
     r_weights = con.eval("ccResults$#{self.annotation_type}@mainGraph@edgeData@data").to_ruby
     r_node_data = con.eval("ccResults$#{self.annotation_type}@mainGraph@nodeData@data").to_ruby
+    logger.debug r_node_data
 
     r_nodes.each_with_index {|node, index| elements[:nodes] << {data: {id: node, name: r_node_data[index]["Desc"]}}}
 
     r_edges.each_with_index do |edge,i|
       if edge
         if edge[0].is_a? Array
-          edge[0].each{|e| elements[:edges] << {data: {source: r_edges.key_at(i),target: r_nodes[e-1]}}}
+          edge[0].each{|e| elements[:edges] << {data: {source: r_edges.key_at(i), target: r_nodes[e-1]}}}
         elsif edge[0].is_a? Integer
           elements[:edges] << {data: {source: r_edges.key_at(i),target: r_nodes[edge[0]-1]}}
         end
