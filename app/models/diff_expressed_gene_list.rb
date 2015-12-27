@@ -4,7 +4,7 @@ class DiffExpressedGeneList < ActiveRecord::Base
   
   column :text_gene_list, :string
   column :file_gene_list, :string
-  column :name, :string
+  column :gene_list_label, :string
   column :color, :string
   column :category_compare_id, :integer
   
