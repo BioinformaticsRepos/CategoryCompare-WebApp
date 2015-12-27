@@ -1,0 +1,10 @@
+source("http://bioconductor.org/biocLite.R")
+
+biocLite("categoryCompare")
+biocLite("KEGG.db")
+biocLite("org.Mm.eg.db")
+biocLite("org.Rn.eg.db")
+biocLite("org.Dm.eg.db")
+biocLite("org.Dr.eg.db")
+biocLite("org.Xl.eg.db")
+biocLite("org.Bt.eg.db")
