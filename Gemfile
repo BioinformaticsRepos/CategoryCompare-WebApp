@@ -64,3 +64,5 @@ group :development do
   gem 'pry-remote'
 end
 
+# Use the jQuery MiniColors library, so that we can display color pickers.
+gem 'jquery-minicolors-rails'
