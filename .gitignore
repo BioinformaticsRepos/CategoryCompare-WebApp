@@ -47,3 +47,6 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+# Don't keep track of commands entered into R.
+.Rhistory
