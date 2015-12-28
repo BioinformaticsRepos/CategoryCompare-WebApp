@@ -1,0 +1,11 @@
+%h3 Properties
+%span{:id => "SelectedNode"} SelectedNodeHere
+
+%h3 Settings
+= simple_form_for Setting.new, url: update_graph_path do |f|
+  = f.input :bg_color, as: :minicolors, label: "Background color", input_html: { id: :bg_color_picker }, minicolors: { theme: :bootstrap }
+
+:coffee
+  $("#bg_color_picker").on 'change', (event)  ->
+    selectedRGBValue = event.target.value
+    $("#cy").css('background-color', selectedRGBValue)

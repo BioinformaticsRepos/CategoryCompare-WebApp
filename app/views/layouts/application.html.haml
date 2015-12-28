@@ -31,7 +31,11 @@
         .span3
           .well.sidebar-nav
             = render partial: 'sidebar'
-          
-        .span9
+
+        .span6
           = bootstrap_flash
           = yield
+
+        .span3
+          .well.sidebar-nav
+            = render partial: 'properties'
