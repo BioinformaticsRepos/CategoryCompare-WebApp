@@ -15,3 +15,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require cocoon
+//= require jquery.minicolors
+//= require jquery.minicolors.simple_form
