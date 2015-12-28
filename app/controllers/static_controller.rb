@@ -3,11 +3,13 @@ class StaticController < ApplicationController
     @category_compare = CategoryCompare.new(diff_expressed_gene_list: [DiffExpressedGeneList.new],
                                             all_possible_genes: AllPossibleGenes.new)
     @organism_type_list = OrganismType.HumanFriendlyUIList
+    @setting = Setting.new()
   end
 
   def update_graph
     @category_compare = CategoryCompare.new(graph_attributes)
     gon.elements = @category_compare.run
+
     render 'graph'
   end
 
