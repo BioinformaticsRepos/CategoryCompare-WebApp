@@ -11,7 +11,7 @@
     = b.file_field :file_gene_list
 
   %legend 
-    %span Differentially-expressed genes
+    %span Differentially-expressed gene lists
   #tasks
     = f.simple_fields_for :diff_expressed_gene_list do |i|
       = render 'diff_expressed_gene_list_fields', :f => i
