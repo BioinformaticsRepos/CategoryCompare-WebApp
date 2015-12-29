@@ -15,7 +15,18 @@
 :javascript
   $("#cy").ready(function() {
     cy.on('click', 'node', function(event) {
-      $("#SelectedNodeID").text(this.id())
-      $("#SelectedNodeDescription").text(this.data("name"))
+
+      function AmiGO_link_from_GO_term(go_term) {
+          var AMIGO_URL_PREFIX = "http://amigo.geneontology.org/amigo/term/"
+          return AMIGO_URL_PREFIX + go_term;
+      }
+
+      var go_id = this.id();
+      $("#SelectedNodeID").text(go_id);
+      $("#SelectedNodeDescription").text(this.data("name"));
+      if ((typeof go_id === 'string' || go_id instanceof String) && go_id.length > 0)
+      {
+        $("#SelectedNodeAmiGOLink").html('<a href="' + AmiGO_link_from_GO_term(go_id) + '">AmiGO link</a>');
+      }
     });
   });
