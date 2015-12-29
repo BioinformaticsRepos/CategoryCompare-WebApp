@@ -4,8 +4,14 @@
 %h3 Settings
 = simple_form_for Setting.new, url: update_graph_path do |f|
   = f.input :bg_color, as: :minicolors, label: "Background color", input_html: { id: :bg_color_picker }, minicolors: { theme: :bootstrap }
+  = f.input :edge_color, as: :minicolors, label: "Edge color", input_html: { id: :edge_color_picker }, minicolors: { theme: :bootstrap }
 
 :coffee
   $("#bg_color_picker").on 'change', (event)  ->
     selectedRGBValue = event.target.value
     $("#cy").css('background-color', selectedRGBValue)
+:coffee
+  $("#edge_color_picker").on 'change', (event)  ->
+    selectedRGBValue = event.target.value
+    console.log(selectedRGBValue)
+    cy.edges().style("line-color", selectedRGBValue)
