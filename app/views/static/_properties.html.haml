@@ -18,5 +18,4 @@
 :coffee
   $("#edge_color_picker").on 'change', (event)  ->
     selectedRGBValue = event.target.value
-    console.log(selectedRGBValue)
     cy.edges().style("line-color", selectedRGBValue)
