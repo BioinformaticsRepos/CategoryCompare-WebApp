@@ -5,6 +5,8 @@
 %div
   %span <strong>Description:</strong>
   %span{:id => "SelectedNodeDescription"} none selected
+%div
+  %span{:id => "SelectedNodeAmiGOLink"} AmiGO link - none selected
 
 %h3 Settings
 = simple_form_for Setting.new, url: update_graph_path do |f|
