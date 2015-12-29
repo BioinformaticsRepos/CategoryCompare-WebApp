@@ -9,7 +9,7 @@ class DiffExpressedGeneList < ActiveRecord::Base
   column :category_compare_id, :integer
   
   validate :check_gene_list_presence
-  validates_presence_of :name, :color
+  validates_presence_of :gene_list_label, :color
 
 #  def initialize(attrs = {})
     #@genelist = attrs[:genelist]

@@ -23,6 +23,6 @@ class StaticController < ApplicationController
     params.require(:category_compare).permit(:annotation_type, :organism_type,
                                              :significance_value, 
                                              all_possible_genes_attributes: [:text_gene_list, :file_gene_list],
-                                             diff_expressed_gene_list_attributes: [:name, :text_gene_list, :file_gene_list])
+                                             diff_expressed_gene_list_attributes: [:gene_list_label, :text_gene_list, :file_gene_list])
   end
 end
