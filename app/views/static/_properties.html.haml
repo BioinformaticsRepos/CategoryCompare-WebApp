@@ -1,5 +1,10 @@
 %h3 Properties
-%span{:id => "SelectedNode"} SelectedNodeHere
+%div
+  %span <strong>Node:</strong>
+  %span{:id => "SelectedNodeID"} none selected
+%div
+  %span <strong>Description:</strong>
+  %span{:id => "SelectedNodeDescription"} none selected
 
 %h3 Settings
 = simple_form_for Setting.new, url: update_graph_path do |f|

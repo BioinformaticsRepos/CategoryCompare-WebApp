@@ -12,3 +12,10 @@
   $("#recenter-view").on 'click', (->
     cy.fit()
   )
+:javascript
+  $("#cy").ready(function() {
+    cy.on('click', 'node', function(event) {
+      $("#SelectedNodeID").text(this.id())
+      $("#SelectedNodeDescription").text(this.data("name"))
+    });
+  });
