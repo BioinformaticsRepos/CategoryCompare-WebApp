@@ -6,7 +6,9 @@
 
 :coffee
   $('#export-png').on 'click', (->
-    $("#export-png").attr('href', cy.png({bg:'white',full:true}))
+    background_color = $("#cy").css("background-color")
+    zoom_level = cy.zoom()
+    $("#export-png").attr('href', cy.png({bg:background_color,scale:zoom_level,full:true}))
   )
 :coffee
   $("#recenter-view").on 'click', (->
