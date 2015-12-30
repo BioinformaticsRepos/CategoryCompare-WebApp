@@ -113,6 +113,9 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.2)
+    passenger (5.0.23)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.4)
     posix-spawn (0.3.8)
     pry (0.9.12.6)
@@ -224,6 +227,7 @@ DEPENDENCIES
   jquery-minicolors-rails
   jquery-rails
   less-rails
+  passenger
   pry-remote
   rails (= 4.0.3)
   rserve-client
