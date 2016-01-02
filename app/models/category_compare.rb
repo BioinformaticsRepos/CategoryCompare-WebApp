@@ -13,14 +13,14 @@ class CategoryCompare < ActiveRecord::Base
   validates_numericality_of :significance_value, greater_than_or_equal_to: 0, message: 'Must be greater than or equal to 0'
   validates_numericality_of :significance_value, less_than_or_equal_to: 1, message: 'Must be be less than or equal to 1'
 
+  # TODO Now that the list names gene_list.gene_list_label are used to refer to R variables,
+  #      R command injection is possible. This should be fixed.
+  # TODO Disallow commas in gene list names, since it can mess with the code I think.
+  # TODO There should be an if statement here depending on the gene list.
+  # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
   def run
     con = RserveUtils.get_connection()
 
-    # TODO Now that the list names gene_list.gene_list_label are used to refer to R variables,
-    #      R command injection is possible. This should be fixed.
-    # TODO Disallow commas in gene list names, since it can mess with the code I think.
-    # TODO There should be an if statement here depending on the gene list.
-    if self.all_possible_genes.text_gene_list.length > 0
       con.assign("EntrezUniverseTable", self.all_possible_genes.text_gene_list.split(' ').map(&:to_i))
     elsif !File.zero?(self.all_possible_genes.file_gene_list.tempfile)
       con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list.tempfile).map{|line| line.to_i})
