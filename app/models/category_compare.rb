@@ -22,9 +22,9 @@ class CategoryCompare < ActiveRecord::Base
     con = RserveUtils.get_connection()
 
     if gene_universe.text_gene_list_used()
-      con.assign("EntrezUniverseTable", self.gene_universe.text_gene_list.split(' ').map(&:to_i))
+      con.assign("EntrezUniverseTable", gene_universe.text_gene_list.split(' ').map(&:to_i))
     elsif gene_universe.file_gene_list_used()
-      con.assign("EntrezUniverseTable", File.foreach(self.gene_universe.file_gene_list_source()).map{|line| line.to_i})
+      con.assign("EntrezUniverseTable", File.foreach(gene_universe.file_gene_list_source()).map{|line| line.to_i})
     end
 
     con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
