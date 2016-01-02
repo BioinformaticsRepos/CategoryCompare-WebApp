@@ -21,9 +21,9 @@ class CategoryCompare < ActiveRecord::Base
   def run
     con = RserveUtils.get_connection()
 
-    if text_gene_list_used()
+    if all_possible_genes.text_gene_list_used()
       con.assign("EntrezUniverseTable", self.all_possible_genes.text_gene_list.split(' ').map(&:to_i))
-    elsif file_gene_list_used()
+    elsif all_possible_genes.file_gene_list_used()
       con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list_source()).map{|line| line.to_i})
     end
 
@@ -94,11 +94,4 @@ class CategoryCompare < ActiveRecord::Base
     elements
   end
 
-  def text_gene_list_used()
-    self.all_possible_genes.text_gene_list.length > 0
-  end
-
-  def file_gene_list_used()
-    !File.zero?(self.all_possible_genes.file_gene_list_source())
-  end
 end
