@@ -24,8 +24,7 @@ class CategoryCompare < ActiveRecord::Base
     if text_gene_list_used()
       con.assign("EntrezUniverseTable", self.all_possible_genes.text_gene_list.split(' ').map(&:to_i))
     elsif file_gene_list_used()
-      con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list.tempfile).map{|line| line.to_i})
-#self.all_possible_genes.file_gene_list.read().lines.map(&:to_i))
+      con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list_source()).map{|line| line.to_i})
     end
 
     con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
@@ -100,6 +99,6 @@ class CategoryCompare < ActiveRecord::Base
   end
 
   def file_gene_list_used()
-   !File.zero?(self.all_possible_genes.file_gene_list.tempfile)
+    !File.zero?(self.all_possible_genes.file_gene_list_source())
   end
 end
