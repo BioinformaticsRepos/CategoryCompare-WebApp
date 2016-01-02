@@ -9,7 +9,7 @@ class CategoryCompare < ActiveRecord::Base
   column :organism_type, :string
   column :significance_value, :real
 
-  validates_presence_of :annotation_type, :significance_value, :organism_type
+  validates_presence_of :annotation_type, :significance_value, :organism_type, :gene_universe
   validates_numericality_of :significance_value, greater_than_or_equal_to: 0, message: 'Must be greater than or equal to 0'
   validates_numericality_of :significance_value, less_than_or_equal_to: 1, message: 'Must be be less than or equal to 1'
 
@@ -93,5 +93,4 @@ class CategoryCompare < ActiveRecord::Base
     elements[:nodes].each {|n| n[:css] = {'background-color' => r_node_data[n[:data][:id]][15]}}
     elements
   end
-
 end
