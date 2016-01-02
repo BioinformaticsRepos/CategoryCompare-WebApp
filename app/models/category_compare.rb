@@ -21,6 +21,7 @@ class CategoryCompare < ActiveRecord::Base
   def run
     con = RserveUtils.get_connection()
 
+    if gene_universe.text_gene_list_used() or gene_universe.file_gene_list_used()
       con.assign("EntrezUniverseTable", gene_universe.to_r_gene_list())
     end
 
