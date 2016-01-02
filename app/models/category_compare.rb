@@ -22,9 +22,9 @@ class CategoryCompare < ActiveRecord::Base
     con = RserveUtils.get_connection()
 
     if gene_universe.text_gene_list_used()
-      con.assign("EntrezUniverseTable", gene_universe.text_gene_list.split(' ').map(&:to_i))
+      con.assign("EntrezUniverseTable", get_r_gene_universe_from_text(gene_universe))
     elsif gene_universe.file_gene_list_used()
-      con.assign("EntrezUniverseTable", File.foreach(gene_universe.file_gene_list_source()).map{|line| line.to_i})
+      con.assign("EntrezUniverseTable", get_r_gene_universe_from_file(gene_universe))
     end
 
     con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
@@ -93,4 +93,15 @@ class CategoryCompare < ActiveRecord::Base
     elements[:nodes].each {|n| n[:css] = {'background-color' => r_node_data[n[:data][:id]][15]}}
     elements
   end
+
+  private
+  def get_r_gene_universe_from_text(gene_universe)
+    gene_universe.text_gene_list.split(' ').map(&:to_i)
+  end
+
+  private
+  def get_r_gene_universe_from_file(gene_universe)
+      File.foreach(gene_universe.file_gene_list_source()).map{|line| line.to_i}
+  end
+
 end
