@@ -23,4 +23,8 @@ class DiffExpressedGeneList < ActiveRecord::Base
       return true
     end
   end
+
+  def file_gene_list_source()
+    self.file_gene_list.tempfile
+  end
 end

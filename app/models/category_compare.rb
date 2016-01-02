@@ -41,9 +41,9 @@ class CategoryCompare < ActiveRecord::Base
     #      get the selected organism_type from that controller - not the selected UI text.
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "'" + gene_list.gene_list_label + "'=genelist#{i},"
-      elsif File.exist?(gene_list.file_gene_list.tempfile) and
-          File.size(gene_list.file_gene_list.tempfile) != 0
-        con.assign("genes#{i}", File.foreach(gene_list.file_gene_list.tempfile).map{|line| line.to_i})
+      elsif File.exist?(gene_list.file_gene_list_source()) and
+          File.size(gene_list.file_gene_list_source()) != 0
+        con.assign("genes#{i}", File.foreach(gene_list.file_gene_list_source()).map{|line| line.to_i})
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         # TODO This should be renamed "list_of_diff_expressed_gene_lists"
         list_of_gene_lists << "'" + gene_list.gene_list_label + "'=genelist#{i},"
