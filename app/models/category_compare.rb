@@ -33,14 +33,13 @@ class CategoryCompare < ActiveRecord::Base
       logger.debug gene_list.gene_list_label
 
       # TODO This validation should be more rigorous, correct.
-      if !gene_list.text_gene_list.blank?
+      if gene_list.text_gene_list_used?()
         con.assign("genes#{i}", gene_list.text_gene_list.split(' ').map(&:to_i))
-    # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
-    #      get the selected organism_type from that controller - not the selected UI text.
+        # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
+        #      get the selected organism_type from that controller - not the selected UI text.
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "'" + gene_list.gene_list_label + "'=genelist#{i},"
-      elsif File.exist?(gene_list.file_gene_list_source()) and
-          File.size(gene_list.file_gene_list_source()) != 0
+      elsif gene_list.file_gene_list_used?()
         con.assign("genes#{i}", File.foreach(gene_list.file_gene_list_source()).map{|line| line.to_i})
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         # TODO This should be renamed "list_of_diff_expressed_gene_lists"

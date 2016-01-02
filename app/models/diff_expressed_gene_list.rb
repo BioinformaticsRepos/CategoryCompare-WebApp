@@ -27,4 +27,13 @@ class DiffExpressedGeneList < ActiveRecord::Base
   def file_gene_list_source()
     self.file_gene_list.tempfile
   end
+
+  def text_gene_list_used?()
+    !text_gene_list.blank?
+  end
+
+  def file_gene_list_used?()
+    File.exist?(file_gene_list_source()) and
+      File.size(file_gene_list_source()) != 0
+  end
 end
