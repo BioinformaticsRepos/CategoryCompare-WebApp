@@ -31,7 +31,7 @@ class CategoryCompare < ActiveRecord::Base
 
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
     list_of_gene_lists = ""
-    self.diff_expressed_gene_list.each_with_index do |gene_list, i|
+    diff_expressed_gene_list.each_with_index do |gene_list, i|
       logger.debug gene_list.gene_list_label
 
       # TODO This validation should be more rigorous, correct.
