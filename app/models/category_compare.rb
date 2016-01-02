@@ -1,6 +1,5 @@
 class CategoryCompare < ActiveRecord::Base
   has_no_table
-  require 'rserve'
 
   has_many :diff_expressed_gene_list
   has_one :all_possible_genes
@@ -15,7 +14,7 @@ class CategoryCompare < ActiveRecord::Base
   validates_numericality_of :significance_value, less_than_or_equal_to: 1, message: 'Must be be less than or equal to 1'
 
   def run
-    con=Rserve::Connection.new
+    con = RserveUtils.get_connection()
 
     # TODO Now that the list names gene_list.gene_list_label are used to refer to R variables,
     #      R command injection is possible. This should be fixed.
