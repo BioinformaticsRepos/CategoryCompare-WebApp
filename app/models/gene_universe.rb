@@ -17,11 +17,11 @@ class GeneUniverse < ActiveRecord::Base
     self.file_gene_list.tempfile
   end
 
-  def text_gene_list_used()
+  def text_gene_list_used?()
     self.text_gene_list.length > 0
   end
 
-  def file_gene_list_used()
+  def file_gene_list_used?()
     !File.zero?(self.file_gene_list_source())
   end
 
