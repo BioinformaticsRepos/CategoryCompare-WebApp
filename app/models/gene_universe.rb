@@ -24,4 +24,17 @@ class GeneUniverse < ActiveRecord::Base
   def file_gene_list_used()
     !File.zero?(self.file_gene_list_source())
   end
+
+  ##
+  # Returns a string which represents this gene universe as
+  # a list of integers, which can be interpreted by R.
+  def to_r_gene_list()
+    if text_gene_list_used()
+      self.text_gene_list.split(' ').map(&:to_i)
+    elsif file_gene_list_used()
+      File.foreach(self.file_gene_list_source()).map{|line| line.to_i}
+    else
+      raise RuntimeError("Neither a text- or file-based gene list is available. R gene list can't be created.")
+    end
+  end
 end
