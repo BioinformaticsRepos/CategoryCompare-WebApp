@@ -2,8 +2,8 @@ class CategoryCompare < ActiveRecord::Base
   has_no_table
 
   has_many :diff_expressed_gene_list
-  has_one :all_possible_genes
-  accepts_nested_attributes_for :diff_expressed_gene_list, :all_possible_genes
+  has_one :gene_universe
+  accepts_nested_attributes_for :diff_expressed_gene_list, :gene_universe
 
   column :annotation_type, :string
   column :organism_type, :string
@@ -21,10 +21,10 @@ class CategoryCompare < ActiveRecord::Base
   def run
     con = RserveUtils.get_connection()
 
-    if all_possible_genes.text_gene_list_used()
-      con.assign("EntrezUniverseTable", self.all_possible_genes.text_gene_list.split(' ').map(&:to_i))
-    elsif all_possible_genes.file_gene_list_used()
-      con.assign("EntrezUniverseTable", File.foreach(self.all_possible_genes.file_gene_list_source()).map{|line| line.to_i})
+    if gene_universe.text_gene_list_used()
+      con.assign("EntrezUniverseTable", self.gene_universe.text_gene_list.split(' ').map(&:to_i))
+    elsif gene_universe.file_gene_list_used()
+      con.assign("EntrezUniverseTable", File.foreach(self.gene_universe.file_gene_list_source()).map{|line| line.to_i})
     end
 
     con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
