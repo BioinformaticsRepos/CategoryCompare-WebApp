@@ -81,4 +81,10 @@ class CategoryCompare
     elements
   end
 
+  def initialize(attributes = {})
+    self.diff_expressed_gene_lists = attributes[:diff_expressed_gene_lists]
+    self.annotation_type = attributes[:annotation_type]
+    self.organism_type = attributes[:organism_type]
+    self.gene_universe = attributes[:gene_universe]
+  end
 end
