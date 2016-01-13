@@ -6,9 +6,10 @@
   <br />
 
   %legend Gene universe
-  = f.simple_fields_for :gene_universe do |b|
-    = b.input :text_gene_list
-    = b.file_field :file_gene_list
+  = f.simple_fields_for :gene_universe do |g_u|
+    = g_u.simple_fields_for :gene_list do |g_l|
+      = g_l.input :text_gene_list, required: false
+      = g_l.file_field :file_gene_list, required: false
 
   %legend 
     %span Differentially-expressed gene lists
