@@ -14,11 +14,15 @@ class CategoryCompare
   def run
     con = RserveUtils.get_connection()
 
-    if gene_universe.text_gene_list_used?() or gene_universe.file_gene_list_used?()
-      con.assign("EntrezUniverseTable", gene_universe.to_r_gene_list())
-    end
 
-    con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
+    if gene_universe.gene_list.text_gene_list_used?() or gene_universe.gene_list.file_gene_list_used?()
+      con.assign("EntrezUniverseTable", gene_universe.gene_list.to_r_gene_list())
+      # TODO Should I use con.assign here?
+      con.void_eval("geneUniverse <- unique(EntrezUniverseTable)" )
+    else
+      # TODO This state should never be allowed to happen in the first place.
+      raise NotImplementedError("TODO No gene universe was specified. What should be done here?")
+    end
 
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
     list_of_gene_lists = ""
