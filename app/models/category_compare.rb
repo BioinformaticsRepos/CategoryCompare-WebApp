@@ -66,7 +66,11 @@ class CategoryCompare < ActiveRecord::Base
     r_node_data = con.eval("ccResults$#{self.annotation_type}@mainGraph@nodeData@data").to_ruby
     logger.debug r_node_data
 
-    r_nodes.each_with_index {|node, index| elements[:nodes] << {data: {id: node, name: r_node_data[index]["Desc"]}}}
+    if (!r_nodes.nil?) && (r_nodes.length > 0)
+      r_nodes.each_with_index {|node, index| elements[:nodes] << {data: {id: node, name: r_node_data[index]["Desc"]}}}
+    else
+      raise NotImplementedError("TODO No nodes were found. We should display an error/warning/something here.")
+    end
 
     r_edges.each_with_index do |edge,i|
       if edge
