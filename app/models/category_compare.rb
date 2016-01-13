@@ -33,10 +33,6 @@ class CategoryCompare
       end
     end
 
-    # TODO The reason the "Organism type" IS UNREADable is because we use it
-    #      to say 'org.{Organism type}.db' to get info about it. There should be
-    #      a data structure mapping from an organism type to a human-readable name.
-    #      Same for the databases and such.
     # Removes trailing comma
     list_of_gene_lists.chomp!(',')
 
