@@ -5,4 +5,4 @@
 cd ~/SourceCode/CategoryCompare-WebApp-Application
 
 # Start the rails server, which hosts the web app.
-bundle exec passenger start
+sudo bundle exec passenger start
