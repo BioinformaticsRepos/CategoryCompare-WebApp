@@ -53,7 +53,7 @@ class CategoryCompare
     r_edges = con.eval("ccResults$#{self.annotation_type}@mainGraph@edgeL").to_ruby
     r_weights = con.eval("ccResults$#{self.annotation_type}@mainGraph@edgeData@data").to_ruby
     r_node_data = con.eval("ccResults$#{self.annotation_type}@mainGraph@nodeData@data").to_ruby
-    logger.debug r_node_data
+    Rails.logger.debug r_node_data
 
     if (!r_nodes.nil?) && (r_nodes.length > 0)
       r_nodes.each_with_index {|node, index| elements[:nodes] << {data: {id: node, name: r_node_data[index]["Desc"]}}}
