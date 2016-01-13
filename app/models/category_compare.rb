@@ -1,13 +1,7 @@
-class CategoryCompare < ActiveRecord::Base
-  has_no_table
+class CategoryCompare
+  include ActiveModel::Model
 
-  has_many :diff_expressed_gene_list
-  has_one :gene_universe
-  accepts_nested_attributes_for :diff_expressed_gene_list, :gene_universe
-
-  column :annotation_type, :string
-  column :organism_type, :string
-  column :significance_value, :real
+  attr_accessor :diff_expressed_gene_lists, :gene_universe, :annotation_type, :organism_type, :significance_value, :list_of_gene_lists
 
   validates_presence_of :annotation_type, :significance_value, :organism_type, :gene_universe
   validates_numericality_of :significance_value, greater_than_or_equal_to: 0, message: 'Must be greater than or equal to 0'
