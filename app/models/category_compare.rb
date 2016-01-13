@@ -17,7 +17,6 @@ class CategoryCompare < ActiveRecord::Base
   #      R command injection is possible. This should be fixed.
   # TODO Disallow commas in gene list names, since it can mess with the code I think.
   # TODO There should be an if statement here depending on the gene list.
-  # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
   def run
     con = RserveUtils.get_connection()
 
