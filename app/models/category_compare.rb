@@ -23,7 +23,6 @@ class CategoryCompare
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
     list_of_gene_lists = ""
     diff_expressed_gene_list.each_with_index do |gene_list, i|
-      logger.debug gene_list.gene_list_label
 
       if gene_list.text_gene_list_used?() or gene_list.file_gene_list_used?()
         con.assign("genes#{i}", gene_list.to_r_gene_list())
