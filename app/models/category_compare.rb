@@ -14,6 +14,7 @@ class CategoryCompare
   def run
     con = RserveUtils.get_connection()
 
+    list_of_gene_lists = ""
 
     if gene_universe.gene_list.text_gene_list_used?() or gene_universe.gene_list.file_gene_list_used?()
       con.assign("EntrezUniverseTable", gene_universe.gene_list.to_r_gene_list())
@@ -25,7 +26,6 @@ class CategoryCompare
     end
 
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
-    list_of_gene_lists = ""
     self.diff_expressed_gene_lists.each_with_index do |de_gene_list, i|
       if de_gene_list.gene_list.text_gene_list_used?() or de_gene_list.gene_list.file_gene_list_used?()
         con.assign("genes#{i}", de_gene_list.gene_list.to_r_gene_list())
