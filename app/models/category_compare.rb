@@ -33,7 +33,7 @@ class CategoryCompare
         # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
         #      get the selected organism_type from that controller - not the selected UI text.
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
-        list_of_gene_lists << "'" + de_gene_list.gene_list_label + "'=genelist#{i},"
+        list_of_gene_lists << "'#{de_gene_list.gene_list_label}'=genelist#{i},"
       end
     end
 
