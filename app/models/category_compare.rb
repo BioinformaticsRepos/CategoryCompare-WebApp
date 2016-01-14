@@ -26,12 +26,9 @@ class CategoryCompare
 
     # TODO This list_of_gene_lists refers to the set of differentially-expressed genes, specified over a list of lists.
     list_of_gene_lists = ""
-    diff_expressed_gene_list.each_with_index do |gene_list, i|
-
-      if gene_list.text_gene_list_used?() or gene_list.file_gene_list_used?()
-        con.assign("genes#{i}", gene_list.to_r_gene_list())
-        # TODO This substring is a giant hack. I need a controller that makes a list to be displayed in the UI, and I need to
-        #      get the selected organism_type from that controller - not the selected UI text.
+    self.diff_expressed_gene_lists.each_with_index do |de_gene_list, i|
+      if de_gene_list.gene_list.text_gene_list_used?() or de_gene_list.gene_list.file_gene_list_used?()
+        con.assign("genes#{i}", de_gene_list.gene_list.to_r_gene_list())
         con.void_eval("genelist#{i} <- list(genes=genes#{i}, universe=geneUniverse, annotation='org.#{self.organism_type}.eg.db')")
         list_of_gene_lists << "'#{de_gene_list.gene_list_label}'=genelist#{i},"
       end
