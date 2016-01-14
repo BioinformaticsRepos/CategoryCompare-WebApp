@@ -1,0 +1,7 @@
+%h3 Legend
+= simple_form_for @category_compare, url: update_graph_path do |f|
+  = f.simple_fields_for :diff_expressed_gene_lists do |de_g_l|
+    %div
+      = de_g_l.input :color, as: :minicolors, label: de_g_l.object.gene_list_label, minicolors: { theme: :bootstrap, readonly: true, value: de_g_l.object.color }
+-# TODO Apparently when the original page is loaded, there's one item shown in the legend, which shouldn't be there.
+-# TODO Apparently setting the gene list thing to readonly isn't working. Might need to set it to disabled  also?
