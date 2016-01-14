@@ -7,6 +7,10 @@ class CategoryCompare
   validates_numericality_of :significance_value, greater_than_or_equal_to: 0, message: 'Must be greater than or equal to 0'
   validates_numericality_of :significance_value, less_than_or_equal_to: 1, message: 'Must be be less than or equal to 1'
 
+  def diff_expressed_gene_lists_attributes=(attributes)
+    @diff_expressed_gene_lists = [DiffExpressedGeneList.new(attributes)]
+  end
+
   # TODO Now that the list names gene_list.gene_list_label are used to refer to R variables,
   #      R command injection is possible. This should be fixed.
   # TODO Disallow commas in gene list names, since it can mess with the code I think.
